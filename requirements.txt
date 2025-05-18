@@ -1,0 +1,5 @@
+requests
+spacy==3.8.4
+pdfplumber==0.11.6
+selenium==4.10.0
+python-dotenv==1.0.0
