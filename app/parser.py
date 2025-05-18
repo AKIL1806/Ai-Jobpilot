@@ -1,6 +1,19 @@
 import re
 import pdfplumber
 
+def extract_experience(text):
+    # Regex pattern to capture text under experience sections
+    pattern = r'(experience|work experience|professional experience)(.*?)(education|projects|skills|certifications|$)'
+    match = re.search(pattern, text, re.IGNORECASE | re.DOTALL)
+    if match:
+        # Extract and clean up the matched experience text
+        experience_text = match.group(2).strip()
+        # Optionally split into lines or bullet points
+        lines = [line.strip() for line in experience_text.split('\n') if line.strip()]
+        return lines
+    return []
+
+
 def extract_text_from_pdf(pdf_path):
     with pdfplumber.open(pdf_path) as pdf:
         text = ''
@@ -58,7 +71,7 @@ def parse_resume(pdf_path):
     skills = extract_skills(text)
     name = extract_name(text)
     education = extract_education(text)
-    
+
     return {
         'name': name,
         'email': email,
